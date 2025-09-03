@@ -1,5 +1,13 @@
+internal enum NameOrigin
+{
+    creation,
+    modification
+};
+
 class Program
 {
+
+    private static NameOrigin nameOrigin = NameOrigin.creation;
     private const string outputPath = "./output";
     private static void Main(string[] args)
     {
@@ -19,6 +27,13 @@ class Program
             Console.ReadKey();
             return;
         }
+
+        Console.WriteLine("M-Modificaion / C-Creacion: ");
+        ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
+        if (consoleKeyInfo.KeyChar == 'M')
+            nameOrigin = NameOrigin.modification;
+        else 
+            nameOrigin = NameOrigin.creation;
 
         string[] files = Directory.GetFiles(folderPath);
 
@@ -40,8 +55,12 @@ class Program
         foreach (string file in files)
         {
             FileInfo fileInfo = new(file);
-            DateTime creationDate = fileInfo.CreationTime;
-            string isoDateTime = creationDate.ToString("yyyy-MM-ddTHH-mm-ss");
+            DateTime fileDate = nameOrigin switch{
+                NameOrigin.creation => fileInfo.CreationTime,
+                NameOrigin.modification => fileInfo.LastWriteTime,
+                _ => fileInfo.CreationTime
+            } ;
+            string isoDateTime = fileDate.ToString("yyyy-MM-ddTHH-mm-ss");
             string extension = fileInfo.Extension;
             string newFileName = $"{isoDateTime}{extension}";
             string fileoutPath = Path.Combine(outPath, newFileName);
