@@ -39,16 +39,19 @@ class Program
 
         foreach (string file in files)
         {
-            FileInfo fileInfo = new (file);
+            FileInfo fileInfo = new(file);
             DateTime creationDate = fileInfo.CreationTime;
             string isoDateTime = creationDate.ToString("yyyy-MM-ddTHH-mm-ss");
             string extension = fileInfo.Extension;
             string newFileName = $"{isoDateTime}{extension}";
             string fileoutPath = Path.Combine(outPath, newFileName);
 
-            if (File.Exists(fileoutPath))
+            int counter = 1;
+            while (File.Exists(fileoutPath))
             {
-                continue;
+                newFileName = $"{isoDateTime}-{counter}{extension}";
+                fileoutPath = Path.Combine(outPath, newFileName);
+                counter++;
             }
 
             File.Copy(file, fileoutPath);
