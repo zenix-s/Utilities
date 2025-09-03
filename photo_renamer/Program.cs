@@ -28,14 +28,15 @@ class Program
             return;
         }
 
-        Console.WriteLine("M-Modificaion / C-Creacion: ");
+        Console.Write("M-Modificaion / C-Creacion: ");
         ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
+        Console.WriteLine();
         if (consoleKeyInfo.KeyChar == 'M')
             nameOrigin = NameOrigin.modification;
         else 
             nameOrigin = NameOrigin.creation;
 
-        string[] files = Directory.GetFiles(folderPath);
+        string[] files = Directory.GetFiles(folderPath, "*", SearchOption.AllDirectories);
 
         if (files.Length == 0)
         {
