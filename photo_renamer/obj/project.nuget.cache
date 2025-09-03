@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "G9nCN25XSjk=",
+  "success": true,
+  "projectFilePath": "/home/sergioffdev/development/photo_renamer/photo_renamer.csproj",
+  "expectedPackageFiles": [
+    "/home/sergioffdev/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.8/microsoft.aspnetcore.app.ref.9.0.8.nupkg.sha512"
+  ],
+  "logs": []
+}
